@@ -32,5 +32,27 @@ namespace BeehiveManagementSystem
                 new Worker(new string[] {"Nectar collector","Honey manufacturing", "Egg care", "Baby bee tutoring", "Hive maintenance", "Sting patrol"})
             };
         }
+
+        private void btnAssignJob_Click(object sender, EventArgs e)
+        {
+            string message;
+            string job = cmbWorkerBeeJob.Text;
+            int numberOfShifts = (int)shifts.Value;
+            if (queen.AssignWork(job, numberOfShifts))
+            {
+                message = $"Job: {job} assigned to a worker for {numberOfShifts} shifts";
+            }
+            else
+            {
+                message = $"No worker available for {job}";
+            }
+            MessageBox.Show(message);
+        }
+
+        private void btnWorkNextShift_Click(object sender, EventArgs e)
+        {
+            string report = queen.WorkTheNextShift();
+            txtReport.Text = report;
+        }
     }
 }
